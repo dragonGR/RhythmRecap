@@ -2,7 +2,7 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import ErrorBoundary from './ErrorBoundary';
 import text from '../config/texts';
 import { fetchTopTracks, fetchTopArtists } from '../services/spotifyService';
-import './App.css';
+import './styles/App.css';
 
 const Login = lazy(() => import('./Login'));
 const Controls = lazy(() => import('./Controls'));

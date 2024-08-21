@@ -1,0 +1,86 @@
+/* Main app container styling */
+.App {
+  text-align: center;
+}
+
+/* Login button styling */
+.login-button {
+  padding: 10px;
+  background-color: #010202;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #1ed760;
+}
+
+/* Image styling for track and artist items */
+img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Headings styling */
+h4 {
+  margin-top: 0px;
+}
+
+/* Controls container */
+.controls {
+  margin: 20px;
+}
+
+/* Range input styling */
+input[type="range"] {
+  width: 100%;
+}
+
+/* Error message styling */
+.error {
+  color: red;
+  font-size: 1.2em;
+  margin: 20px;
+  text-align: center;
+}
+
+/* Spinner container for loading state */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+/* Adjustments for top artists and top tracks sections */
+.top-artists,
+.top-tracks {
+  margin-top: 20px;
+}
+
+/* Responsive image styling */
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+  img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  img {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* Global body styling */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #e8f5e9;
+}
