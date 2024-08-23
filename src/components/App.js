@@ -1,12 +1,13 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import ErrorBoundary from './ErrorBoundary';
 import text from '../config/texts';
-import { fetchTopTracks, fetchTopArtists } from '../services/spotifyService';
+import { fetchTopTracks, fetchTopArtists, fetchUserProfile } from '../services/spotifyService';
 import './styles/App.css';
 
 const Login = lazy(() => import('./Login'));
 const Controls = lazy(() => import('./Controls'));
 const Results = lazy(() => import('./Results'));
+const UserProfile = lazy(() => import('./UserProfile'));
 
 function App() {
   const [accessToken, setAccessToken] = useState(null);
@@ -17,12 +18,20 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [dataFetched, setDataFetched] = useState(false);
-
+  const [userProfile, setUserProfile] = useState(null);
+ 
   useEffect(() => {
     const token = new URLSearchParams(window.location.hash.substring(1)).get('access_token');
     if (token) {
       setAccessToken(token);
       window.history.replaceState({}, document.title, window.location.pathname);
+
+      // Fetch user profile data
+      fetchUserProfile(token)
+        .then((profile) => setUserProfile(profile.data))
+        .catch((err) => {
+          setError(text.app.fetchUserProfileError);
+        });
     }
   }, []);
 
@@ -77,6 +86,7 @@ function App() {
             <Login handleLogin={handleLogin} />
           ) : (
             <>
+              {userProfile && <UserProfile profile={userProfile} />}
               <Controls 
                 setTimeRange={setTimeRange} 
                 setLimit={setLimit} 

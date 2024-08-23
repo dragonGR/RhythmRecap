@@ -17,3 +17,12 @@ export const fetchTopArtists = async (accessToken, timeRange, limit) => {
     params: { limit, time_range: timeRange },
   });
 };
+
+// Fetches User profile from the Spotify API
+export const fetchUserProfile = (accessToken) => {
+  return axios.get(`${process.env.REACT_APP_SPOTIFY_API_BASE_URL}`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};

@@ -26,7 +26,12 @@ const text = {
     },
     app: {
       fetchTopTracksError: "Failed to fetch top tracks. Please try again.",
-      fetchTopArtistsError: "Failed to fetch top artists. Please try again."
+      fetchTopArtistsError: "Failed to fetch top artists. Please try again.",
+      fetchUserProfileError: "Failed to fetch user profile. Please try again."
+    },
+    userProfile: {
+      followersLabel: "Followers",
+      accountTypeLabel: "Account",
     }
   };
   
