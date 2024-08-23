@@ -9,6 +9,9 @@ const Login = ({ handleLogin }) => (
     <button className="login-button" onClick={handleLogin}>
       {text.login.button}
     </button>
+    <a href="https://github.com/dragonGR" className="github-link" target="_blank" rel="noopener noreferrer">
+      <i className="fab fa-github"></i>
+      </a>
   </div>
 );
 

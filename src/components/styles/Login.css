@@ -1,101 +1,169 @@
 /* Keyframes for button animation */
 @keyframes pulse {
-    0%, 100% {
-      opacity: 0.4;
-      transform: scale(0.95);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1);
-    }
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.95);
   }
-  
-  /* Main container styling */
-  .login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #1db954, #191414); /* Spotify gradient */
-    color: #fff;
-    text-align: center;
-    padding: 20px;
+  50% {
+    opacity: 1;
+    transform: scale(1);
   }
-  
-  /* Heading styling */
+}
+
+/* Main container styling */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #004d40; /* Solid dark green */
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+/* Heading styling */
+.login-heading {
+  font-size: 3.5em;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700; /* Slightly bolder for emphasis */
+  color: #e8f5e9; /* Light green text */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add subtle text shadow */
+}
+
+/* Description text styling */
+.login-description {
+  font-size: 1.2em;
+  margin-bottom: 40px;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6; /* Adjust line-height for readability */
+  max-width: 600px;
+  letter-spacing: 0.5px; /* Slightly increase letter-spacing */
+  color: rgba(255, 255, 255, 0.9); /* Slightly reduce opacity for softer appearance */
+  padding: 0 10px; /* Ensure text isn't too close to the edges */
+}
+
+/* Button styling */
+.login-button {
+  background-color: #004d40; /* Dark green */
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s, filter 0.3s;
+  font-family: 'Arial', sans-serif;
+  position: relative;
+  overflow: hidden;
+  filter: brightness(1); /* Ensure the button remains bright */
+}
+
+.login-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 2s infinite;
+}
+
+.login-button:hover {
+  background-color: #00796b; /* Slightly lighter dark green on hover */
+  transform: scale(1.05);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+  filter: brightness(1.1); /* Brighten button on hover */
+  animation: pulse 0.5s ease-out; /* Add a quick pulse effect */
+}
+
+.login-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 77, 64, 0.4); /* Glow effect on focus */
+}
+
+.login-button:active {
+  background-color: #003d33; /* Even darker green on click */
+}
+
+/* GitHub icon styling */
+.github-link {
+  position: fixed; /* Fixed position */
+  bottom: 20px; /* 20px from the bottom of the viewport */
+  left: 20px; /* 20px from the left of the viewport */
+  background-color: #333; /* Dark background for the icon */
+  border-radius: 50%;
+  width: 50px; /* Size of the icon */
+  height: 50px; /* Size of the icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s, box-shadow 0.3s;
+  font-size: 24px; /* Adjust font size */
+}
+
+.github-link:hover {
+  background-color: #444; /* Slightly lighter dark gray on hover */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.github-link i {
+  pointer-events: none; /* Ensure clicks go through to the link */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .login-heading {
-    font-size: 3em;
-    margin-bottom: 20px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
-    background: linear-gradient(#fff, #e8f5e9);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: 2.5em;
   }
-  
-  /* Description text styling */
+
   .login-description {
-    font-size: 1.2em;
-    margin-bottom: 40px;
-    font-family: 'Arial', sans-serif;
-    line-height: 1.5;
-    max-width: 600px;
+    font-size: 1em;
   }
-  
-  /* Button styling */
+
   .login-button {
-    background-color: #1db954; /* Spotify green */
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
-    font-family: 'Arial', sans-serif;
-    position: relative;
-    overflow: hidden;
+    padding: 12px 25px;
+    font-size: 16px;
   }
-  
-  .login-button::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 200%;
-    height: 200%;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    animation: pulse 2s infinite;
+
+  .github-link {
+    width: 45px; /* Adjust size for smaller screens */
+    height: 45px; /* Adjust size for smaller screens */
+    bottom: 15px; /* Adjust position */
+    left: 15px; /* Adjust position */
+    font-size: 22px; /* Adjust font size */
   }
-  
-  /* Hover effect for button */
-  .login-button:hover {
-    background-color: #1ed760; /* Slightly lighter green on hover */
-    transform: scale(1.05);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 480px) {
+  .login-heading {
+    font-size: 2em;
   }
-  
-  .login-button:focus {
-    outline: none;
+
+  .login-description {
+    font-size: 0.9em;
   }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .login-heading {
-      font-size: 2.5em;
-    }
-  
-    .login-description {
-      font-size: 1em;
-    }
-  
-    .login-button {
-      padding: 12px 25px;
-      font-size: 16px;
-    }
-  }  
+
+  .login-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .github-link {
+    width: 40px; /* Adjust size for very small screens */
+    height: 40px; /* Adjust size for very small screens */
+    bottom: 10px; /* Adjust position */
+    left: 10px; /* Adjust position */
+    font-size: 20px; /* Adjust font size */
+  }
+}
