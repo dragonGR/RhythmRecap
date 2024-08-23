@@ -17,7 +17,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #004d40; /* Solid dark green */
+  background: linear-gradient(135deg, #1db954, #191414); /* Spotify gradient */
   color: #fff;
   text-align: center;
   padding: 20px;
@@ -42,14 +42,13 @@
   font-family: 'Arial', sans-serif;
   line-height: 1.6; /* Adjust line-height for readability */
   max-width: 600px;
-  letter-spacing: 0.5px; /* Slightly increase letter-spacing */
   color: rgba(255, 255, 255, 0.9); /* Slightly reduce opacity for softer appearance */
   padding: 0 10px; /* Ensure text isn't too close to the edges */
 }
 
 /* Button styling */
 .login-button {
-  background-color: #004d40; /* Dark green */
+  background-color: #1db954; /* Dark green */
   color: white;
   border: none;
   padding: 15px 30px;
@@ -57,11 +56,10 @@
   border-radius: 8px;
   cursor: pointer;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s, filter 0.3s;
+  transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
   font-family: 'Arial', sans-serif;
   position: relative;
   overflow: hidden;
-  filter: brightness(1); /* Ensure the button remains bright */
 }
 
 .login-button::before {
@@ -78,11 +76,9 @@
 }
 
 .login-button:hover {
-  background-color: #00796b; /* Slightly lighter dark green on hover */
+  background-color: #1db954; /* Slightly lighter dark green on hover */
   transform: scale(1.05);
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
-  filter: brightness(1.1); /* Brighten button on hover */
-  animation: pulse 0.5s ease-out; /* Add a quick pulse effect */
 }
 
 .login-button:focus {
@@ -92,6 +88,25 @@
 
 .login-button:active {
   background-color: #003d33; /* Even darker green on click */
+}
+
+/* Keyframes for GitHub icon animations */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
 }
 
 /* GitHub icon styling */
@@ -108,13 +123,14 @@
   justify-content: center;
   color: white;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-  transition: background-color 0.3s, box-shadow 0.3s;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
   font-size: 24px; /* Adjust font size */
 }
 
 .github-link:hover {
   background-color: #444; /* Slightly lighter dark gray on hover */
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
+  animation: scaleUp 0.3s forwards, rotate 2s infinite linear;
 }
 
 .github-link i {
