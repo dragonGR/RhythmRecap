@@ -7,7 +7,7 @@ This is a React application that allows users to view their top tracks and artis
 ## Why
 I made a very similar project with JavaScript and HTML, but it felt old. I wanted to learn more about React, so I made it again with React. I couldn't find many websites that used React to show Spotify music. So, I made a website that shows the most popular songs and artists.
 
-This website is a good start for showing top songs and artists. You can choose to see data from the last 4 weeks, last 6 months, or all time. It also has a slider to show the results. It's made entirely with React and uses good ways to make it fast and use less memory. This website is a good base for anyone who wants to make similar websites or learn more about React.
+This website is a great starting point for showcasing top songs and artists. You can choose to view data from the last 4 weeks, the last 6 months, or all time. It also features a slider to display the results. I am making an effort to separate each feature into individual commits, so anyone can see how it's done. The website is built entirely with React and uses efficient techniques to enhance performance and reduce memory usage. It serves as a solid foundation for anyone looking to create similar websites or learn more about React.
 
 The old project for reference: https://github.com/dragonGR/spotify-stats
 
@@ -40,10 +40,12 @@ Modify the existing `.env` file in the root of the project, this is an example:
 REACT_APP_CLIENT_ID=your_spotify_client_id
 REACT_APP_REDIRECT_URI=your_redirect_uri
 REACT_APP_SCOPES=your_scopes
-REACT_APP_SPOTIFY_AUTH_URL=https://accounts.spotify.com/authorize?response_type=token&client_id=%s&scope=%s&redirect_uri=%s
-REACT_APP_SPOTIFY_API_BASE_URL=https://api.spotify.com/v1
-REACT_APP_SPOTIFY_API_TOP_TRACKS_ENDPOINT="/top/tracks"
-REACT_APP_SPOTIFY_API_TOP_ARTISTS_ENDPOINT="/top/artists"
+REACT_APP_SPOTIFY_AUTH_URL=the_auth_url
+
+Endpoints:
+REACT_APP_SPOTIFY_API_BASE_URL="
+REACT_APP_SPOTIFY_API_TOP_TRACKS_ENDPOINT="
+REACT_APP_SPOTIFY_API_TOP_ARTISTS_ENDPOINT="
 ```
 Replace the placeholders with your actual Spotify application details.
 
@@ -60,6 +62,7 @@ The app will be usually available at 'http://localhost:3000'.
        - handleLogin: Redirects users to Spotify's login page.
         - fetchTopTracksData: Fetches top tracks data from Spotify.
         - fetchTopArtistsData: Fetches top artists data from Spotify.
+        - handleCreatePlaylist: Creates a playlist based on user's top songs
 
 #### `Controls.js`
  - Purpose: Provides UI elements for selecting time range and result limit, and buttons to fetch top tracks and artists.
@@ -103,7 +106,7 @@ The app will be usually available at 'http://localhost:3000'.
     - Key Features:
       - fetchTopTracks: Sends a GET request to the Spotify API to retrieve the user's top tracks based on specified time range and result limit.
       - fetchTopArtists: Sends a GET request to the Spotify API to retrieve the user's top artists based on specified time range and result limit.
-      - 
+      - createPlaylist & addTracksToPlaylist: Sends a POST request to the spotify API to create a playlist and add user's top tracks.
 
 #### `texts.js`
 - Texts: All text strings used in the app are located in src/config/texts.js. Customize these texts as needed for different languages or styles.
