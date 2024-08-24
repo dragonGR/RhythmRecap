@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import ErrorBoundary from './ErrorBoundary';
 import text from '../config/texts';
-import { fetchTopTracks, fetchTopArtists, fetchUserProfile } from '../services/spotifyService';
+import { fetchTopTracks, fetchTopArtists, fetchUserProfile, createPlaylist, addTracksToPlaylist} from '../services/spotifyService';
 import './styles/App.css';
 
 const Login = lazy(() => import('./Login'));
@@ -19,7 +19,8 @@ function App() {
   const [error, setError] = useState(null);
   const [dataFetched, setDataFetched] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
- 
+  const [showCreatePlaylist, setShowCreatePlaylist] = useState(false);
+
   useEffect(() => {
     const token = new URLSearchParams(window.location.hash.substring(1)).get('access_token');
     if (token) {
@@ -56,6 +57,7 @@ function App() {
       setStats((prevStats) => ({ ...prevStats, tracks: response.data.items }));
       setView('tracks');
       setDataFetched(true);
+      setShowCreatePlaylist(true);
     } catch (error) {
       setError(text.app.fetchTopTracksError);
     } finally {
@@ -78,6 +80,29 @@ function App() {
     }
   };
 
+  const handleCreatePlaylist = async () => {
+    if (!stats.tracks.length) {
+      setError(text.app.fetchTopTracksError);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const playlistResponse = await createPlaylist(accessToken, userProfile.id, 'My Top Tracks Playlist');
+      const playlistId = playlistResponse.data.id;
+
+      const trackUris = stats.tracks.map(track => track.uri);
+      await addTracksToPlaylist(accessToken, playlistId, trackUris);
+
+      setError(null);
+      alert(text.app.playlistCreationSuccess);
+    } catch (err) {
+      setError(text.app.playlistCreationError);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <ErrorBoundary>
       <div className="App">
@@ -91,7 +116,9 @@ function App() {
                 setTimeRange={setTimeRange} 
                 setLimit={setLimit} 
                 fetchTopTracks={fetchTopTracksData} 
-                fetchTopArtists={fetchTopArtistsData} 
+                fetchTopArtists={fetchTopArtistsData}
+                createPlaylist={handleCreatePlaylist}
+                showCreatePlaylist={showCreatePlaylist}
               />
               {error && <div className="error">{error}</div>}
               <Results view={view} stats={stats} isLoading={loading} />

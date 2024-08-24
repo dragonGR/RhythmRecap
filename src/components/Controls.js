@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import './styles/Controls.css';
 import text from '../config/texts';
 
-const Controls = ({ setTimeRange, setLimit, fetchTopTracks, fetchTopArtists }) => {
+const Controls = ({ setTimeRange, setLimit, fetchTopTracks, fetchTopArtists, createPlaylist, showCreatePlaylist }) => {
   const [sliderValue, setSliderValue] = useState(20);
 
   // Memoize the range change handler
@@ -22,6 +22,11 @@ const Controls = ({ setTimeRange, setLimit, fetchTopTracks, fetchTopArtists }) =
     fetchTopArtists();
   }, [fetchTopArtists]);
 
+    // Memoize the handleCreatePlaylist handlers
+    const handleCreatePlaylist = useCallback(() => {
+      createPlaylist();
+    }, [createPlaylist]);
+    
   return (
     <div className="controls-container">
       <div className="controls-section">
@@ -78,6 +83,11 @@ const Controls = ({ setTimeRange, setLimit, fetchTopTracks, fetchTopArtists }) =
         <button className="fetch-button" onClick={handleFetchTopArtists}>
           {text.controls.fetchTopArtistsButton}
         </button>
+        {showCreatePlaylist && (
+          <button className="create-playlist-button" onClick={handleCreatePlaylist}>
+            {text.controls.createPlaylistButton}
+          </button>
+        )}
       </div>
     </div>
   );

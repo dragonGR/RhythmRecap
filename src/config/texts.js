@@ -22,12 +22,16 @@ const text = {
       allTime: "All time",
       numberOfResultsLabel: "Number of results:",
       fetchTopTracksButton: "Fetch Top Tracks",
-      fetchTopArtistsButton: "Fetch Top Artists"
+      fetchTopArtistsButton: "Fetch Top Artists",
+      createPlaylistButton: "Create a Playlist from your top tracks"
     },
     app: {
       fetchTopTracksError: "Failed to fetch top tracks. Please try again.",
       fetchTopArtistsError: "Failed to fetch top artists. Please try again.",
-      fetchUserProfileError: "Failed to fetch user profile. Please try again."
+      fetchUserProfileError: "Failed to fetch user profile. Please try again.",
+      fetchUserProfileError: "Failed to fetch user profile. Please try again.",
+      playlistCreationSuccess: "Playlist created successfully.",
+      playlistCreationError: "Failed to create playlist. Please try again."
     },
     userProfile: {
       followersLabel: "Followers",

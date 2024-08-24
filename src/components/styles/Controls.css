@@ -1,142 +1,166 @@
 /* Main container styling for controls */
 .controls-container {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: auto;
+}
+
+/* Section spacing */
+.controls-section {
+  margin-bottom: 20px;
+}
+
+/* Label styling */
+.controls-label {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}
+
+/* Radio button group styling */
+.radio-group {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Radio option styling */
+.radio-option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.radio-option input[type="radio"] {
+  margin-right: 10px;
+  accent-color: #007bff; /* Radio button color */
+}
+
+.radio-option span {
+  font-size: 1em;
+}
+
+.radio-option:hover {
+  background-color: #f0f0f0;
+}
+
+/* Range slider styling */
+.range-slider-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.range-slider {
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #ddd;
+  border-radius: 5px;
+  outline: none;
+  transition: background 0.3s;
+}
+
+.range-slider::-webkit-slider-thumb,
+.range-slider::-moz-range-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Display value of the slider */
+.slider-value {
+  min-width: 50px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Buttons container styling */
+.controls-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Space between buttons */
+}
+
+/* Fetch buttons styling */
+.fetch-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.fetch-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.fetch-button:active {
+  background-color: #004494;
+  transform: scale(0.95);
+}
+
+/* Create Playlist button styling - Matches fetch-button styling */
+.create-playlist-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background-color: #28a745; /* A green color to distinguish from fetch buttons */
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.create-playlist-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.create-playlist-button:active {
+  background-color: #1e7e34;
+  transform: scale(0.95);
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 768px) {
+  .controls-container {
+    padding: 15px;
   }
-  
-  /* Section spacing */
-  .controls-section {
-    margin-bottom: 20px;
-  }
-  
-  /* Label styling */
-  .controls-label {
-    font-weight: bold;
-    font-size: 1.1em;
-    margin-bottom: 10px;
-  }
-  
-  /* Radio button group styling */
+
   .radio-group {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+    flex-direction: column;
   }
-  
-  /* Radio option styling */
-  .radio-option {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 8px;
-    transition: background-color 0.2s;
-  }
-  
-  .radio-option input[type="radio"] {
-    margin-right: 10px;
-    accent-color: #007bff; /* Radio button color */
-  }
-  
-  .radio-option span {
-    font-size: 1em;
-  }
-  
-  .radio-option:hover {
-    background-color: #f0f0f0;
-  }
-  
-  /* Range slider styling */
+
   .range-slider-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;
+    align-items: stretch;
   }
-  
-  .range-slider {
-    appearance: none;
-    width: 100%;
-    height: 8px;
-    background: #ddd;
-    border-radius: 5px;
-    outline: none;
-    transition: background 0.3s;
-  }
-  
-  .range-slider::-webkit-slider-thumb,
-  .range-slider::-moz-range-thumb {
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #007bff;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  
-  /* Display value of the slider */
+
   .slider-value {
-    min-width: 50px;
-    text-align: center;
-    font-weight: bold;
+    margin-top: 10px;
   }
-  
-  /* Buttons container styling */
-  .controls-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* Space between buttons */
+
+  .fetch-button,
+  .create-playlist-button {
+    width: 100%;
+    padding: 12px;
   }
-  
-  /* Fetch buttons styling */
-  .fetch-button {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    background-color: #007bff;
-    color: white;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .fetch-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-  }
-  
-  .fetch-button:active {
-    background-color: #004494;
-    transform: scale(0.95);
-  }
-  
-  /* Responsive adjustments */
-  @media only screen and (max-width: 768px) {
-    .controls-container {
-      padding: 15px;
-    }
-  
-    .radio-group {
-      flex-direction: column;
-    }
-  
-    .range-slider-container {
-      flex-direction: column;
-      align-items: stretch;
-    }
-  
-    .slider-value {
-      margin-top: 10px;
-    }
-  
-    .fetch-button {
-      width: 100%;
-      padding: 12px;
-    }
-  }  
+}

@@ -26,3 +26,35 @@ export const fetchUserProfile = (accessToken) => {
     },
   });
 };
+
+// Create a new playlist
+export const createPlaylist = async (accessToken, userId, playlistName) => {
+  const url = `${process.env.REACT_APP_SPOTIFY_API_CREATE_PLAYLIST}/users/${userId}/playlists`;
+  const payload = {
+    name: playlistName,
+    public: false // Set to true if you want the playlist to be public
+  };
+
+  return axios.post(url, payload, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  });
+};
+
+// Adds tracks to the playlist
+export const addTracksToPlaylist = async (accessToken, playlistId, trackUris) => {
+  const url = `${process.env.REACT_APP_SPOTIFY_API_CREATE_PLAYLIST}/playlists/${playlistId}/tracks`;
+  return axios.post(
+    url,
+    {
+      uris: trackUris,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+};
