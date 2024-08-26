@@ -40,12 +40,13 @@ const Controls = ({
       const response = await fetchTopArtists(accessToken, timeRange, limit);
       setStats((prevStats) => ({ ...prevStats, artists: response.data.items }));
       setView('artists');
+      setShowCreatePlaylist(false);
     } catch (error) {
       setError(text.app.fetchTopArtistsError);
     } finally {
       setLoading(false);
     }
-  }, [accessToken, timeRange, limit, setStats, setView, setError, setLoading]);
+  }, [accessToken, timeRange, limit, setStats, setView, setShowCreatePlaylist, setError, setLoading]);
 
   const handleCreatePlaylist = useCallback(async () => {
     if (!stats.tracks.length) {
