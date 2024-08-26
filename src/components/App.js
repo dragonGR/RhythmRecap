@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import ErrorBoundary from './ErrorBoundary';
 import text from '../config/texts';
-import { fetchTopTracks, fetchTopArtists, fetchUserProfile, createPlaylist, addTracksToPlaylist} from '../services/spotifyService';
+import { fetchUserProfile } from '../services/spotifyService';
 import './styles/App.css';
 
 const Login = lazy(() => import('./Login'));
@@ -11,13 +11,10 @@ const UserProfile = lazy(() => import('./UserProfile'));
 
 function App() {
   const [accessToken, setAccessToken] = useState(null);
-  const [timeRange, setTimeRange] = useState('short_term');
-  const [limit, setLimit] = useState(20);
   const [stats, setStats] = useState({ tracks: [], artists: [] });
   const [view, setView] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [dataFetched, setDataFetched] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const [showCreatePlaylist, setShowCreatePlaylist] = useState(false);
 
@@ -30,7 +27,7 @@ function App() {
       // Fetch user profile data
       fetchUserProfile(token)
         .then((profile) => setUserProfile(profile.data))
-        .catch((err) => {
+        .catch(() => {
           setError(text.app.fetchUserProfileError);
         });
     }
@@ -49,60 +46,6 @@ function App() {
     window.location = url;
   };
 
-  const fetchTopTracksData = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetchTopTracks(accessToken, timeRange, limit);
-      setStats((prevStats) => ({ ...prevStats, tracks: response.data.items }));
-      setView('tracks');
-      setDataFetched(true);
-      setShowCreatePlaylist(true);
-    } catch (error) {
-      setError(text.app.fetchTopTracksError);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchTopArtistsData = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetchTopArtists(accessToken, timeRange, limit);
-      setStats((prevStats) => ({ ...prevStats, artists: response.data.items }));
-      setView('artists');
-      setDataFetched(true);
-    } catch (error) {
-      setError(text.app.fetchTopArtistsError);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleCreatePlaylist = async () => {
-    if (!stats.tracks.length) {
-      setError(text.app.fetchTopTracksError);
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const playlistResponse = await createPlaylist(accessToken, userProfile.id, 'My Top Tracks Playlist');
-      const playlistId = playlistResponse.data.id;
-
-      const trackUris = stats.tracks.map(track => track.uri);
-      await addTracksToPlaylist(accessToken, playlistId, trackUris);
-
-      setError(null);
-      alert(text.app.playlistCreationSuccess);
-    } catch (err) {
-      setError(text.app.playlistCreationError);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <ErrorBoundary>
       <div className="App">
@@ -113,11 +56,14 @@ function App() {
             <>
               {userProfile && <UserProfile profile={userProfile} />}
               <Controls 
-                setTimeRange={setTimeRange} 
-                setLimit={setLimit} 
-                fetchTopTracks={fetchTopTracksData} 
-                fetchTopArtists={fetchTopArtistsData}
-                createPlaylist={handleCreatePlaylist}
+                accessToken={accessToken}
+                stats={stats}
+                userProfile={userProfile}
+                setView={setView}
+                setStats={setStats}
+                setLoading={setLoading}
+                setError={setError}
+                setShowCreatePlaylist={setShowCreatePlaylist}
                 showCreatePlaylist={showCreatePlaylist}
               />
               {error && <div className="error">{error}</div>}
