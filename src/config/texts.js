@@ -29,7 +29,6 @@ const text = {
       fetchTopTracksError: "Failed to fetch top tracks. Please try again.",
       fetchTopArtistsError: "Failed to fetch top artists. Please try again.",
       fetchUserProfileError: "Failed to fetch user profile. Please try again.",
-      fetchUserProfileError: "Failed to fetch user profile. Please try again.",
       playlistCreationSuccess: "Playlist created successfully.",
       playlistCreationError: "Failed to create playlist. Please try again."
     },
