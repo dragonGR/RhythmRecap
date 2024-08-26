@@ -21,6 +21,7 @@ The old project for reference: https://github.com/dragonGR/spotify-stats
 - **Result Limit Control**: Adjust the number of results displayed from 1 to 50.
 - **Dynamic Data Fetching**: Fetch and display top tracks and artists based on user preferences.
 - **Error Handling**: Graceful error handling and user feedback if data fetching fails.
+- **Playlist Creation**: Option to create a playlist from top tracks.
 
 ## Installation
 
@@ -54,59 +55,4 @@ Replace the placeholders with your actual Spotify application details.
 npm start
 ```
 The app will be usually available at 'http://localhost:3000'.
-
-## Components
-#### `App.js`
-- Purpose: Main component that handles authentication, data fetching, and rendering of the app based on user state.
-    - Key Functions:
-       - handleLogin: Redirects users to Spotify's login page.
-        - fetchTopTracksData: Fetches top tracks data from Spotify.
-        - fetchTopArtistsData: Fetches top artists data from Spotify.
-        - handleCreatePlaylist: Creates a playlist based on user's top songs
-
-#### `Controls.js`
- - Purpose: Provides UI elements for selecting time range and result limit, and buttons to fetch top tracks and artists.
-     - Key Functions:
-        - handleRangeChange: Updates the result limit based on slider input.
-        - handleFetchTopTracks: Fetches top tracks data.
-        - handleFetchTopArtists: Fetches top artists data.
-
-#### `Results.js`
-- Purpose: Displays the results of the data fetch, showing either top tracks or top artists.
-    - Key Components:
-        - TopTracks: Renders a list of top tracks.
-        - TopArtists: Renders a list of top artists.
-        - Spinner: Displays a loading spinner while data is being fetched.
-
-#### `ErrorBoundary.js`
-- Purpose: Catches JavaScript errors anywhere in the app and displays a fallback UI.
-    - Key Features:
-        - Catches errors during rendering, lifecycle methods, and constructors.
-
-#### `Login.js`
-- Purpose: Provides a login button to initiate the Spotify authentication process.
-    - Key Features:
-        Calls handleLogin to redirect users to Spotify's login page.
-
-#### `TopArtists.js`
-- Purpose: Renders a list of top artists with links to their Spotify profiles.
-    - Key Features:
-        - Displays artist names and images, with links to their Spotify pages.
-
-#### `TopTracks.js`
-- Purpose: Renders a list of top tracks with links to their Spotify profiles.
-    - Key Features:
-        - Displays track names, artists, and album images, with links to Spotify pages.
-
-#### `Spinner.js`
-- Purpose: Provides a loading spinner while data is being fetched.
-
-#### `spotifyService.js`
-- Purpose: Contains functions to interact with the Spotify Web API. It abstracts the API requests for fetching top tracks and top artists.
-    - Key Features:
-      - fetchTopTracks: Sends a GET request to the Spotify API to retrieve the user's top tracks based on specified time range and result limit.
-      - fetchTopArtists: Sends a GET request to the Spotify API to retrieve the user's top artists based on specified time range and result limit.
-      - createPlaylist & addTracksToPlaylist: Sends a POST request to the spotify API to create a playlist and add user's top tracks.
-
-#### `texts.js`
-- Texts: All text strings used in the app are located in src/config/texts.js. Customize these texts as needed for different languages or styles.
+exts as needed for different languages or styles.
