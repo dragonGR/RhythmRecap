@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a React application that allows users to view their top tracks and artists from Spotify. Users can log in with their Spotify account, select different time ranges, and adjust the number of results to fetch. The app displays the top tracks and artists based on the user's Spotify data.
+This is a React application that allows users to view their top tracks and artists from Spotify. Users can log in with their Spotify account, select different time ranges, and adjust the number of results to fetch. The app displays the top tracks and artists based on the user's Spotify data. Users can also play a preview of each of their top songs.
 
 ## Why
 I made a very similar project with JavaScript and HTML, but it felt old. I wanted to learn more about React, so I made it again with React. I couldn't find many websites that used React to show Spotify music. So, I made a website that shows the most popular songs and artists.
