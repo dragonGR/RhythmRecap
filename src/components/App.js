@@ -1,5 +1,4 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import ErrorBoundary from './ErrorBoundary';
 import text from '../config/texts';
 import { fetchUserProfile } from '../services/spotifyService';
 import './styles/App.css';
@@ -27,52 +26,46 @@ function App() {
       // Fetch user profile data
       fetchUserProfile(token)
         .then((profile) => setUserProfile(profile.data))
-        .catch(() => {
-          setError(text.app.fetchUserProfileError);
-        });
+        .catch(() => setError(text.app.fetchUserProfileError));
     }
   }, []);
 
   const handleLogin = () => {
-    const clientId = process.env.REACT_APP_CLIENT_ID;
-    const redirectUri = process.env.REACT_APP_REDIRECT_URI;
-    const scopes = process.env.REACT_APP_SCOPES;
+    const { REACT_APP_CLIENT_ID, REACT_APP_REDIRECT_URI, REACT_APP_SCOPES, REACT_APP_SPOTIFY_AUTH_URL } = process.env;
 
-    const url = process.env.REACT_APP_SPOTIFY_AUTH_URL
-      .replace('%s', encodeURIComponent(clientId))
-      .replace('%s', encodeURIComponent(scopes))
-      .replace('%s', encodeURIComponent(redirectUri));
+    const url = REACT_APP_SPOTIFY_AUTH_URL
+      .replace('%s', encodeURIComponent(REACT_APP_CLIENT_ID))
+      .replace('%s', encodeURIComponent(REACT_APP_SCOPES))
+      .replace('%s', encodeURIComponent(REACT_APP_REDIRECT_URI));
 
     window.location = url;
   };
 
   return (
-    <ErrorBoundary>
-      <div className="App">
-        <Suspense fallback={<div>Loading...</div>}>
-          {!accessToken ? (
-            <Login handleLogin={handleLogin} />
-          ) : (
-            <>
-              {userProfile && <UserProfile profile={userProfile} />}
-              <Controls 
-                accessToken={accessToken}
-                stats={stats}
-                userProfile={userProfile}
-                setView={setView}
-                setStats={setStats}
-                setLoading={setLoading}
-                setError={setError}
-                setShowCreatePlaylist={setShowCreatePlaylist}
-                showCreatePlaylist={showCreatePlaylist}
-              />
-              {error && <div className="error">{error}</div>}
-              <Results view={view} stats={stats} isLoading={loading} />
-            </>
-          )}
-        </Suspense>
-      </div>
-    </ErrorBoundary>
+    <div className="App">
+      <Suspense fallback={<div>Loading components...</div>}>
+        {!accessToken ? (
+          <Login handleLogin={handleLogin} />
+        ) : (
+          <>
+            {userProfile && <UserProfile profile={userProfile} />}
+            <Controls 
+              accessToken={accessToken}
+              stats={stats}
+              userProfile={userProfile}
+              setView={setView}
+              setStats={setStats}
+              setLoading={setLoading}
+              setError={setError}
+              setShowCreatePlaylist={setShowCreatePlaylist}
+              showCreatePlaylist={showCreatePlaylist}
+            />
+            {error && <div className="error">{error}</div>}
+            <Results view={view} stats={stats} isLoading={loading} />
+          </>
+        )}
+      </Suspense>
+    </div>
   );
 }
 
