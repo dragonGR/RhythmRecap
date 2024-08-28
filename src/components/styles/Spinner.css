@@ -1,34 +1,39 @@
 .spinner {
-    width: 60px;
-    height: 60px;
-    position: relative;
-    margin: auto;
+  width: 60px;
+  height: 60px;
+  position: relative;
+  margin: auto;
+}
+
+.spinner div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #333;
+  opacity: 0.6;
+  animation: spinner-bounce 1.2s infinite ease-in-out;
+}
+
+.spinner-bounce1 {
+  animation-delay: -0.6s;
+}
+
+.spinner-bounce2 {
+  animation-delay: -0.3s;
+}
+
+.spinner-bounce3 {
+  /* Optional: Add a different delay for the third spinner if desired */
+  animation-delay: 0s; 
+}
+
+/* Keyframes for bounce animation */
+@keyframes spinner-bounce {
+  0%, 100% {
+    transform: scale(0);
   }
-  
-  .spinner div {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: #333;
-    opacity: 0.6;
-    animation: spinner-bounce 1.2s infinite ease-in-out;
+  50% {
+    transform: scale(1);
   }
-  
-  .spinner-bounce1 {
-    animation-delay: -0.6s;
-  }
-  
-  .spinner-bounce2 {
-    animation-delay: -0.3s;
-  }
-  
-  /* Keyframes for bounce animation */
-  @keyframes spinner-bounce {
-    0%, 100% {
-      transform: scale(0);
-    }
-    50% {
-      transform: scale(1);
-    }
-  }  
+}

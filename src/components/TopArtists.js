@@ -11,7 +11,12 @@ const TopArtists = ({ artists }) => (
       ) : (
         artists.map((artist, index) => (
           <div key={artist.id} className="artist-item" role="listitem">
-            <a href={artist.external_urls.spotify} target="_blank" rel="noopener noreferrer" aria-label={`Listen to ${artist.name}`}>
+            <a
+              href={artist.external_urls.spotify}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Listen to ${artist.name}`}
+            >
               <img 
                 src={artist.images[1]?.url}
                 srcSet={`${artist.images[1]?.url} 1x, ${artist.images[0]?.url} 2x`} 

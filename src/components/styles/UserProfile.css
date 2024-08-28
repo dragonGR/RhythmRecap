@@ -8,7 +8,7 @@
 .profile-banner {
   width: 100%;
   max-width: 600px;
-  background: linear-gradient(135deg, rgba(29, 185, 84, 0.8), rgba(33, 215, 96, 0.8)); /* Gradient background only */
+  background: linear-gradient(135deg, rgba(29, 185, 84, 0.8), rgba(33, 215, 96, 0.8)); /* Gradient background */
   padding: 20px;
   border-radius: 15px;
   display: flex;
@@ -19,13 +19,13 @@
 
 .profile-image-container {
   flex-shrink: 0;
-  cursor: pointer; /* Makes the cursor a pointer to indicate it's clickable */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for effects */
-  display: inline-block; /* Ensures the container fits the profile image size */
+  cursor: pointer; /* Pointer cursor to indicate clickability */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+  display: inline-block; /* Ensures container fits image size */
 }
 
 .profile-image-container:hover .profile-image {
-  transform: scale(1.05); /* Slight zoom effect */
+  transform: scale(1.05); /* Zoom effect on hover */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
 }
 
@@ -33,9 +33,9 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  border: 5px solid #fff; /* White border to frame the profile picture */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for effects */
+  border: 5px solid #fff; /* White border */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
 }
 
 .profile-details {
