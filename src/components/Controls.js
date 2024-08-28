@@ -5,25 +5,26 @@ import { fetchTopTracks, fetchTopArtists, createPlaylist, addTracksToPlaylist } 
 
 const Controls = ({ 
   accessToken, 
-  stats, 
-  userProfile = {}, // avoid null errors
+  tracks, 
+  artists, 
+  setTracks, 
+  setArtists, 
+  userProfile, 
   setView, 
-  setStats, 
   setLoading, 
   setError, 
-  setShowCreatePlaylist, 
-  showCreatePlaylist 
+  showCreatePlaylist, 
+  setShowCreatePlaylist 
 }) => {
   const [timeRange, setTimeRange] = useState('short_term');
   const [limit, setLimit] = useState(20);
-  const [sliderValue, setSliderValue] = useState(20);
 
   const fetchTopTracksData = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const response = await fetchTopTracks(accessToken, timeRange, limit);
-      setStats((prevStats) => ({ ...prevStats, tracks: response.data.items }));
+      setTracks(response.data.items);
       setView('tracks');
       setShowCreatePlaylist(true);
     } catch (error) {
@@ -31,14 +32,14 @@ const Controls = ({
     } finally {
       setLoading(false);
     }
-  }, [accessToken, timeRange, limit, setStats, setView, setShowCreatePlaylist, setError, setLoading]);
+  }, [accessToken, timeRange, limit, setTracks, setView, setShowCreatePlaylist, setError, setLoading]);
 
   const fetchTopArtistsData = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const response = await fetchTopArtists(accessToken, timeRange, limit);
-      setStats((prevStats) => ({ ...prevStats, artists: response.data.items }));
+      setArtists(response.data.items);
       setView('artists');
       setShowCreatePlaylist(false);
     } catch (error) {
@@ -46,16 +47,16 @@ const Controls = ({
     } finally {
       setLoading(false);
     }
-  }, [accessToken, timeRange, limit, setStats, setView, setShowCreatePlaylist, setError, setLoading]);
+  }, [accessToken, timeRange, limit, setArtists, setView, setShowCreatePlaylist, setError, setLoading]);
 
   const handleCreatePlaylist = useCallback(async () => {
-    if (!stats.tracks.length) {
-      setError(text.app.fetchTopTracksError);
+    if (!tracks.length) {
+      setError(text.app.noTracksError);
       return;
     }
 
-    if (!userProfile?.id) { // Check if userProfile.id exists
-      setError(text.app.userProfileError); // Handle the error gracefully
+    if (!userProfile?.id) { 
+      setError(text.app.userProfileError);
       return;
     }
 
@@ -64,7 +65,7 @@ const Controls = ({
       const playlistResponse = await createPlaylist(accessToken, userProfile.id, 'My Top Tracks Playlist');
       const playlistId = playlistResponse.data.id;
 
-      const trackUris = stats.tracks.map(track => track.uri);
+      const trackUris = tracks.map(track => track.uri);
       await addTracksToPlaylist(accessToken, playlistId, trackUris);
 
       setError(null);
@@ -74,13 +75,11 @@ const Controls = ({
     } finally {
       setLoading(false);
     }
-  }, [accessToken, stats.tracks, userProfile?.id, setError, setLoading]);
+  }, [accessToken, tracks, userProfile?.id, setError, setLoading]);
 
   const handleRangeChange = useCallback((e) => {
-    const value = e.target.value;
-    setSliderValue(value);
-    setLimit(value);
-  }, [setLimit]);
+    setLimit(e.target.value);
+  }, []);
 
   const handleTimeRangeChange = useCallback((e) => {
     setTimeRange(e.target.value);
@@ -130,11 +129,11 @@ const Controls = ({
             type="range"
             min="1"
             max="50"
-            value={sliderValue}
+            value={limit}
             className="range-slider"
             onChange={handleRangeChange}
           />
-          <span className="slider-value">{sliderValue}</span>
+          <span className="slider-value">{limit}</span>
         </div>
       </div>
       <div className="controls-buttons">

@@ -2,34 +2,30 @@ import React from 'react';
 import TopTracks from './TopTracks';
 import TopArtists from './TopArtists';
 import Spinner from './Spinner';
-import './styles/Results.css'; // Import the new CSS file
+import './styles/Results.css';
 
-const Results = ({ view, stats, isLoading }) => {
-  // Show spinner while loading
+const Results = ({ view, tracks, artists, isLoading }) => {
   if (isLoading) {
     return <Spinner />;
   }
 
-  // Display TopTracks if 'tracks' view is selected
   if (view === 'tracks') {
     return (
       <div className="results-container">
-        <TopTracks tracks={stats.tracks} />
+        <TopTracks tracks={tracks} />
       </div>
     );
   }
 
-  // Display TopArtists if 'artists' view is selected
   if (view === 'artists') {
     return (
       <div className="results-container">
-        <TopArtists artists={stats.artists} />
+        <TopArtists artists={artists} />
       </div>
     );
   }
 
-  // Return null if no view is selected
-  return null;
+  return null; // Return null if no view is selected
 };
 
 export default Results;

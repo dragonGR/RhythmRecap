@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect, Suspense, lazy, useMemo } from 'react';
 import text from '../config/texts';
 import { fetchUserProfile } from '../services/spotifyService';
 import './styles/App.css';
@@ -10,7 +10,8 @@ const UserProfile = lazy(() => import('./UserProfile'));
 
 function App() {
   const [accessToken, setAccessToken] = useState(null);
-  const [stats, setStats] = useState({ tracks: [], artists: [] });
+  const [tracks, setTracks] = useState([]);
+  const [artists, setArtists] = useState([]);
   const [view, setView] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -41,32 +42,42 @@ function App() {
     window.location = url;
   };
 
-  return (
-    <div className="App">
-      <Suspense fallback={<div>Loading components...</div>}>
-        {!accessToken ? (
-          <Login handleLogin={handleLogin} />
-        ) : (
-          <>
-            {userProfile && <UserProfile profile={userProfile} />}
-            <Controls 
-              accessToken={accessToken}
-              stats={stats}
-              userProfile={userProfile}
-              setView={setView}
-              setStats={setStats}
-              setLoading={setLoading}
-              setError={setError}
-              setShowCreatePlaylist={setShowCreatePlaylist}
-              showCreatePlaylist={showCreatePlaylist}
-            />
-            {error && <div className="error">{error}</div>}
-            <Results view={view} stats={stats} isLoading={loading} />
-          </>
-        )}
-      </Suspense>
-    </div>
-  );
-}
+    // Memoize derived data | Will be enhanced
+    const filteredTracks = useMemo(() => {
+      return tracks;
+    }, [tracks]);
+  
+    const filteredArtists = useMemo(() => {
+      return artists;
+    }, [artists]);
 
-export default App;
+    return (
+      <div className="App">
+        <Suspense fallback={<div>Loading components...</div>}>
+          {!accessToken ? (
+            <Login handleLogin={handleLogin} />
+          ) : (
+            <>
+              {userProfile && <UserProfile profile={userProfile} />}
+              <Controls 
+                accessToken={accessToken}
+                tracks={tracks}
+                setTracks={setTracks}
+                setArtists={setArtists}
+                userProfile={userProfile}
+                setView={setView}
+                setLoading={setLoading}
+                setError={setError}
+                setShowCreatePlaylist={setShowCreatePlaylist}
+                showCreatePlaylist={showCreatePlaylist}
+              />
+              {error && <div className="error">{error}</div>}
+              <Results view={view} tracks={filteredTracks} artists={filteredArtists} isLoading={loading} />
+            </>
+          )}
+        </Suspense>
+      </div>
+    );
+  }
+  
+  export default App;
