@@ -10,12 +10,12 @@ const TopArtists = ({ artists }) => (
         <div>{text.topArtists.noArtistsFound}</div>
       ) : (
         artists.map((artist, index) => (
-          <div key={artist.id} className="artist-item">
-            <a href={artist.external_urls.spotify} target="_blank" rel="noopener noreferrer">
+          <div key={artist.id} className="artist-item" role="listitem">
+            <a href={artist.external_urls.spotify} target="_blank" rel="noopener noreferrer" aria-label={`Listen to ${artist.name}`}>
               <img 
                 src={artist.images[1]?.url}
-                srcSet={`${artist.images[1]?.url} 1x, ${artist.images[0]?.url} 2x`} // Using higher resolution for retina screens
-                alt={artist.name}
+                srcSet={`${artist.images[1]?.url} 1x, ${artist.images[0]?.url} 2x`} 
+                alt={artist.name} // Descriptive alt text
                 loading="lazy" // Lazy load images
               />
               <h4>{index + 1}. {artist.name}</h4>

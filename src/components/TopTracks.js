@@ -4,21 +4,21 @@ import text from '../config/texts';
 
 const TopTracks = ({ tracks }) => (
   <div className="top-tracks">
-    <h2>{text.topTracks.title}</h2>
+    <h2 className="top-tracks-title">{text.topTracks.title}</h2>
     <div className="results">
       {tracks.length === 0 ? (
-        <div>{text.topTracks.noTracksFound}</div>
+        <div className="no-tracks-found">{text.topTracks.noTracksFound}</div>
       ) : (
         tracks.map((track, index) => (
-          <div key={track.id} className="track-item">
-            <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer">
+          <div key={track.id} className="track-item" role="listitem">
+            <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" aria-label={`Listen to ${track.name} by ${track.artists[0]?.name}`}>
               <img 
                 src={track.album.images[1]?.url}
-                srcSet={`${track.album.images[1]?.url} 1x, ${track.album.images[0]?.url} 2x`} // Using higher resolution for retina screens
+                srcSet={`${track.album.images[1]?.url} 1x, ${track.album.images[0]?.url} 2x`}
                 alt={track.name}
-                loading="lazy" // Lazy load images
+                loading="lazy"
               />
-              <h4>{index + 1}. {track.name} <br /> {track.artists[0]?.name}</h4>
+              <h4 className="track-name">{index + 1}. {track.name} <br /> {track.artists[0]?.name}</h4>
             </a>
           </div>
         ))
