@@ -19,44 +19,27 @@ const Controls = ({
   const [timeRange, setTimeRange] = useState('short_term');
   const [limit, setLimit] = useState(20);
 
-  const fetchTopTracksData = useCallback(async () => {
+  const handleFetchData = useCallback(async (fetchDataFunc, setDataFunc, viewType) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetchTopTracks(accessToken, timeRange, limit);
-      setTracks(response.data.items);
-      setView('tracks');
-      setShowCreatePlaylist(true);
-    } catch (error) {
-      setError(text.app.fetchTopTracksError);
+      const response = await fetchDataFunc(accessToken, timeRange, limit);
+      setDataFunc(response.data.items);
+      setView(viewType);
+      setShowCreatePlaylist(viewType === 'tracks');
+    } catch {
+      setError(viewType === 'tracks' ? text.app.fetchTopTracksError : text.app.fetchTopArtistsError);
     } finally {
       setLoading(false);
     }
-  }, [accessToken, timeRange, limit, setTracks, setView, setShowCreatePlaylist, setError, setLoading]);
+  }, [accessToken, timeRange, limit, setView, setShowCreatePlaylist, setError, setLoading]);
 
-  const fetchTopArtistsData = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetchTopArtists(accessToken, timeRange, limit);
-      setArtists(response.data.items);
-      setView('artists');
-      setShowCreatePlaylist(false);
-    } catch (error) {
-      setError(text.app.fetchTopArtistsError);
-    } finally {
-      setLoading(false);
-    }
-  }, [accessToken, timeRange, limit, setArtists, setView, setShowCreatePlaylist, setError, setLoading]);
+  const fetchTopTracksData = () => handleFetchData(fetchTopTracks, setTracks, 'tracks');
+  const fetchTopArtistsData = () => handleFetchData(fetchTopArtists, setArtists, 'artists');
 
   const handleCreatePlaylist = useCallback(async () => {
-    if (!tracks.length) {
-      setError(text.app.noTracksError);
-      return;
-    }
-
-    if (!userProfile?.id) { 
-      setError(text.app.userProfileError);
+    if (!tracks.length || !userProfile?.id) {
+      setError(!tracks.length ? text.app.noTracksError : text.app.userProfileError);
       return;
     }
 
@@ -64,62 +47,33 @@ const Controls = ({
     try {
       const playlistResponse = await createPlaylist(accessToken, userProfile.id, 'My Top Tracks Playlist');
       const playlistId = playlistResponse.data.id;
-
       const trackUris = tracks.map(track => track.uri);
       await addTracksToPlaylist(accessToken, playlistId, trackUris);
-
-      setError(null);
       alert(text.app.playlistCreationSuccess);
-    } catch (err) {
+    } catch {
       setError(text.app.playlistCreationError);
     } finally {
       setLoading(false);
     }
   }, [accessToken, tracks, userProfile?.id, setError, setLoading]);
 
-  const handleRangeChange = useCallback((e) => {
-    setLimit(e.target.value);
-  }, []);
-
-  const handleTimeRangeChange = useCallback((e) => {
-    setTimeRange(e.target.value);
-  }, []);
-
   return (
     <div className="controls-container">
       <div className="controls-section">
         <p className="controls-label">{text.controls.timeRangeLabel}</p>
         <div className="radio-group">
-          <label className="radio-option">
-            <input
-              type="radio"
-              name="time"
-              value="short_term"
-              checked={timeRange === 'short_term'}
-              onChange={handleTimeRangeChange}
-            />
-            <span>{text.controls.last4Weeks}</span>
-          </label>
-          <label className="radio-option">
-            <input
-              type="radio"
-              name="time"
-              value="medium_term"
-              checked={timeRange === 'medium_term'}
-              onChange={handleTimeRangeChange}
-            />
-            <span>{text.controls.last6Months}</span>
-          </label>
-          <label className="radio-option">
-            <input
-              type="radio"
-              name="time"
-              value="long_term"
-              checked={timeRange === 'long_term'}
-              onChange={handleTimeRangeChange}
-            />
-            <span>{text.controls.allTime}</span>
-          </label>
+          {['short_term', 'medium_term', 'long_term'].map(range => (
+            <label key={range} className="radio-option">
+              <input
+                type="radio"
+                name="time"
+                value={range}
+                checked={timeRange === range}
+                onChange={(e) => setTimeRange(e.target.value)}
+              />
+              <span>{text.controls[`last${range === 'short_term' ? '4Weeks' : range === 'medium_term' ? '6Months' : 'AllTime'}`]}</span>
+            </label>
+          ))}
         </div>
       </div>
       <div className="controls-section">
@@ -131,7 +85,7 @@ const Controls = ({
             max="50"
             value={limit}
             className="range-slider"
-            onChange={handleRangeChange}
+            onChange={(e) => setLimit(e.target.value)}
           />
           <span className="slider-value">{limit}</span>
         </div>

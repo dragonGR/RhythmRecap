@@ -9,23 +9,22 @@ const Results = ({ view, tracks, artists, isLoading }) => {
     return <Spinner />;
   }
 
-  if (view === 'tracks') {
-    return (
-      <div className="results-container">
-        <TopTracks tracks={tracks} />
-      </div>
-    );
-  }
+  const renderContent = () => {
+    switch (view) {
+      case 'tracks':
+        return <TopTracks tracks={tracks} />;
+      case 'artists':
+        return <TopArtists artists={artists} />;
+      default:
+        return null;
+    }
+  };
 
-  if (view === 'artists') {
-    return (
-      <div className="results-container">
-        <TopArtists artists={artists} />
-      </div>
-    );
-  }
-
-  return null; // Return null if no view is selected
+  return (
+    <div className="results-container">
+      {renderContent()}
+    </div>
+  );
 };
 
 export default Results;
