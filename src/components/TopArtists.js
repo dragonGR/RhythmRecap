@@ -2,10 +2,10 @@ import React from 'react';
 import './styles/TopArtists.css';
 import text from '../config/texts';
 
-const TopArtists = ({ artists }) => (
+const TopArtists = React.memo(({ artists }) => (
   <div className="top-artists">
     <h2>{text.topArtists.title}</h2>
-    <div className="results">
+    <div className="results" aria-live="polite">
       {artists.length === 0 ? (
         <div>{text.topArtists.noArtistsFound}</div>
       ) : (
@@ -20,7 +20,7 @@ const TopArtists = ({ artists }) => (
               <img 
                 src={artist.images[1]?.url}
                 srcSet={`${artist.images[1]?.url} 1x, ${artist.images[0]?.url} 2x`} 
-                alt={artist.name} // Descriptive alt text
+                alt={`Image of ${artist.name}`}
                 loading="lazy" // Lazy load images
               />
               <h4>{index + 1}. {artist.name}</h4>
@@ -30,6 +30,6 @@ const TopArtists = ({ artists }) => (
       )}
     </div>
   </div>
-);
+));
 
 export default TopArtists;
