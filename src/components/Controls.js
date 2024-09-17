@@ -71,7 +71,7 @@ const Controls = ({
                 checked={timeRange === range}
                 onChange={(e) => setTimeRange(e.target.value)}
               />
-              <span>{text.controls[`last${range === 'short_term' ? '4Weeks' : range === 'medium_term' ? '6Months' : 'AllTime'}`]}</span>
+              <span>{text.controls[range === 'short_term' ? 'last4Weeks' : range === 'medium_term' ? 'last6Months' : 'allTime']}</span>
             </label>
           ))}
         </div>

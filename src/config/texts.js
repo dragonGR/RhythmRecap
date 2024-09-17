@@ -30,7 +30,9 @@ const text = {
       fetchTopArtistsError: "Failed to fetch top artists. Please try again.",
       fetchUserProfileError: "Failed to fetch user profile. Please try again.",
       playlistCreationSuccess: "Playlist created successfully.",
-      playlistCreationError: "Failed to create playlist. Please try again."
+      playlistCreationError: "Failed to create playlist. Please try again.",
+      noTracksError: "Couldn't load tracks",
+      userProfileError: "Please refresh the page"
     },
     userProfile: {
       followersLabel: "Followers",
