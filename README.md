@@ -38,6 +38,8 @@ REACT_APP_SPOTIFY_API_BASE_URL=https://api.spotify.com/v1/
 REACT_APP_SPOTIFY_API_TOP_TRACKS_ENDPOINT=me/top/tracks
 REACT_APP_SPOTIFY_API_TOP_ARTISTS_ENDPOINT=me/top/artists
 REACT_APP_SPOTIFY_AUTH_URL="https://accounts.spotify.com/authorize?response_type=token&client_id=%s&scope=%s&redirect_uri=%s"
+REACT_APP_SPOTIFY_API_FETCH_PROFILE=https://api.spotify.com/v1/me
+REACT_APP_SPOTIFY_API_CREATE_PLAYLIST=https://api.spotify.com/v1
 ```
 
 - ``REACT_APP_CLIENT_ID``: Your Spotify client ID obtained from the previous step.
@@ -47,6 +49,8 @@ REACT_APP_SPOTIFY_AUTH_URL="https://accounts.spotify.com/authorize?response_type
 - ``REACT_APP_SPOTIFY_API_TOP_TRACKS_ENDPOINT``: The endpoint to fetch a user's top tracks.
 - ``REACT_APP_SPOTIFY_API_TOP_ARTISTS_ENDPOINT``: The endpoint to fetch a user's top artists.
 - ``REACT_APP_SPOTIFY_AUTH_URL``: The value should be as shown in the example above, do not modify it at all.
+- ``REACT_APP_SPOTIFY_API_FETCH_PROFILE``: The endpoint to fetch a user's top artists.
+- ``REACT_APP_SPOTIFY_API_CREATE_PLAYLIST``: The endpoint to create a playlist.
 
 ### Additional Considerations
 - **Security**: Never commit your ``.env`` file to a public repository, use secure environment variable handling methods in production.

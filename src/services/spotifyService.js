@@ -20,7 +20,7 @@ export const fetchTopArtists = async (accessToken, timeRange, limit) => {
 
 // Fetches User profile from the Spotify API
 export const fetchUserProfile = (accessToken) => {
-  return axios.get(`${process.env.REACT_APP_SPOTIFY_API_BASE_URL}`, {
+  return axios.get(`${process.env.REACT_APP_SPOTIFY_API_FETCH_PROFILE}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
