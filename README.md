@@ -33,7 +33,7 @@ Rhythm Recap uses environment variables to securely store sensitive API credenti
 ```env
 REACT_APP_CLIENT_ID=your_spotify_client_id
 REACT_APP_REDIRECT_URI=your_spotify_redirect_uri
-REACT_APP_SCOPES=user-top-read playlist-modify-public playlist-modify-private
+REACT_APP_SCOPES=playlist-read-private playlist-read-collaborative user-top-read playlist-modify-public playlist-modify-private
 REACT_APP_SPOTIFY_API_BASE_URL=https://api.spotify.com/v1/
 REACT_APP_SPOTIFY_API_TOP_TRACKS_ENDPOINT=me/top/tracks
 REACT_APP_SPOTIFY_API_TOP_ARTISTS_ENDPOINT=me/top/artists
@@ -44,7 +44,7 @@ REACT_APP_SPOTIFY_API_CREATE_PLAYLIST=https://api.spotify.com/v1
 
 - ``REACT_APP_CLIENT_ID``: Your Spotify client ID obtained from the previous step.
 - ``REACT_APP_REDIRECT_URI``: The redirect URI configured in your Spotify app settings.
-- ``REACT_APP_SCOPES``: Set this to ``user-top-read`` to grant your app permission to access user's top tracks, ``playlist-modify-public playlist-modify-private`` grants your app permission to create a playlist either public or private (configurable in ``src/services/spotifyService.js``). You can find a full list of Spotify scopes on the Spotify for Developers website.
+- ``REACT_APP_SCOPES``: You can set the values above in the ``.env`` example  to grant your app permission to access private and collaborative playlists, access a user's top tracks and artists, and create public or private playlists (configurable in src/services/spotifyService.js). You can find a full list of Spotify scopes on the Spotify for Developers website.
 - ``REACT_APP_SPOTIFY_API_BASE_URL``: The base URL for Spotify's Web API.
 - ``REACT_APP_SPOTIFY_API_TOP_TRACKS_ENDPOINT``: The endpoint to fetch a user's top tracks.
 - ``REACT_APP_SPOTIFY_API_TOP_ARTISTS_ENDPOINT``: The endpoint to fetch a user's top artists.
